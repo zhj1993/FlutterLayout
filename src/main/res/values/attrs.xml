@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 飘屏view -->
+    <declare-styleable name="FlutterView">
+        <attr name="flutter_size" format="integer" />
+    </declare-styleable>
+</resources>
