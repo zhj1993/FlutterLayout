@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mFlutterLayout.addFlutterMsg("测试");
+                mFlutterLayout.addFlutterMsg("测试飘屏");
             }
         });
     }

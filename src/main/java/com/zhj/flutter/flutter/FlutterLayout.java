@@ -10,7 +10,7 @@ import com.zhj.flutter.R;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * 飘屏
+ * 飘屏布局
  * Created by zhahaijun on 2018/1/5.
  * Email 18655961751@163.com
  */

@@ -11,7 +11,7 @@
         android:id="@+id/flutterlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:flutter_size="5" />
+        app:flutter_size="5" /><!-- view的个数 -->
 
 
     <Button

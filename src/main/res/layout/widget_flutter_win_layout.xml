@@ -11,6 +11,6 @@
         android:textColor="#fff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="飘屏" />
+        android:text="飘屏测试" />
 
 </RelativeLayout>

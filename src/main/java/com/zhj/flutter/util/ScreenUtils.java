@@ -9,7 +9,9 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.WindowManager;
 
-//获得屏幕相关的辅助类
+/*
+ * 获得屏幕相关的辅助类
+ */
 public class ScreenUtils {
 	private ScreenUtils() {
 		/* cannot be instantiated */

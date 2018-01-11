@@ -14,7 +14,7 @@ import at.wirecube.additiveanimations.additive_animator.AdditiveAnimator;
 
 
 /**
- * 飘屏
+ * 飘屏View
  * Created by zhahaijun on 2018/1/5.
  * Email 18655961751@163.com
  */
