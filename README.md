@@ -1,2 +1,3 @@
 # FlutterLayout
-横向移动的Layout 一个管理横向移动的View 可以自定义数量时间和UI
+横向移动的Layout 一个简单管理横向移动的View 可以自定义数量时间和UI
+代码很简单 菜鸡写的!-- 
