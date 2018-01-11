@@ -21,6 +21,12 @@ public class MainActivity extends AppCompatActivity {
                 mFlutterLayout.addFlutterMsg("测试飘屏");
             }
         });
+        findViewById(R.id.clear).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mFlutterLayout.clear();
+            }
+        });
     }
 
     @Override

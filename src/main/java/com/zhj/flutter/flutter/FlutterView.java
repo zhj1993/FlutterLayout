@@ -94,6 +94,7 @@ public class FlutterView extends RelativeLayout {
     Animator.AnimatorListener mAnimatorListener = new Animator.AnimatorListener() {
         @Override
         public void onAnimationStart(Animator animation) {
+            isShowing = true;
             setVisibility(VISIBLE);
         }
 
@@ -149,12 +150,11 @@ public class FlutterView extends RelativeLayout {
     }
 
     /**
-     * 清除动画
+     * 清除消息
      */
     public void clear() {
-        setVisibility(INVISIBLE);
-        AdditiveAnimator.cancelAnimations(this);
         isShowing = false;
         mContent = null;
+        setVisibility(INVISIBLE);
     }
 }
