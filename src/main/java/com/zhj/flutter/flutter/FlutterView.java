@@ -81,11 +81,11 @@ public class FlutterView extends RelativeLayout {
      */
     public void showFlutterView() {
         AdditiveAnimator.animate(this)
-                .x(startLocation[0])
+                .x(startLocation[0])//先回到起点
                 .then()
-                .x(screenWidth)
+                .x(screenWidth)//开始从右向左的横向移动
                 .setDuration(mAnimTime)
-                .setInterpolator(new LinearInterpolator())
+                .setInterpolator(new LinearInterpolator())//匀速移动
                 .addListener(mAnimatorListener).start();
     }
 
@@ -100,8 +100,10 @@ public class FlutterView extends RelativeLayout {
         @Override
         public void onAnimationEnd(Animator animation) {
             isShowing = false;
-            setVisibility(INVISIBLE);
-            if (iFlutterAnimCallBack != null) {//消失回调 通知外部调用
+            if (getVisibility() != INVISIBLE) {
+                setVisibility(INVISIBLE);
+            }
+            if (null != iFlutterAnimCallBack) {//消失回调 通知外部调用
                 iFlutterAnimCallBack.onDismiss(position);
             }
         }
