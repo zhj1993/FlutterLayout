@@ -8,7 +8,6 @@ import com.zhj.flutter.flutter.FlutterLayout;
 
 public class MainActivity extends AppCompatActivity {
 
-
     FlutterLayout mFlutterLayout;
 
     @Override
@@ -16,7 +15,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mFlutterLayout = (FlutterLayout) findViewById(R.id.flutterlayout);
-
         findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
