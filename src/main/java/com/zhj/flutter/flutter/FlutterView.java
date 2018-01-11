@@ -151,10 +151,13 @@ public class FlutterView extends RelativeLayout {
 
     /**
      * 清除消息
+     * 本意是清除动画 但是动画库清除动画的方法有bug存在  所以只需更换自己写的动画就可以
      */
     public void clear() {
         isShowing = false;
         mContent = null;
-        setVisibility(INVISIBLE);
+        if (getVisibility() != INVISIBLE) {
+            setVisibility(INVISIBLE);
+        }
     }
 }
