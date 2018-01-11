@@ -1,16 +1,14 @@
 package com.zhj.flutter.flutter;
 
-import android.animation.Animator;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.RelativeLayout;
 
 import com.zhj.flutter.R;
-import com.zhj.flutter.util.ScreenUtils;
-
-import at.wirecube.additiveanimations.additive_animator.AdditiveAnimator;
 
 
 /**
@@ -29,9 +27,7 @@ public class FlutterView extends RelativeLayout {
     //动画消失回调
     private IFlutterAnimCallBack iFlutterAnimCallBack;
 
-    int[] startLocation = new int[]{ScreenUtils.getScreenWidth(getContext()), 0};
 
-    float screenWidth = -ScreenUtils.getScreenWidth(getContext());//屏幕宽度
     private int mAnimTime = 5000;//飘屏时间
     private String mContent;//内容
 
@@ -77,44 +73,47 @@ public class FlutterView extends RelativeLayout {
     }
 
     /**
-     * 显示飘屏动画  国外的一个大神动画库
+     * 显示飘屏
      */
+    private Animation mTranslateAnim;
+
     public void showFlutterView() {
-        AdditiveAnimator.animate(this)
-                .x(startLocation[0])//先回到起点
-                .then()
-                .x(screenWidth)//开始从右向左的横向移动
-                .setDuration(mAnimTime)
-                .setInterpolator(new LinearInterpolator())//匀速移动
-                .addListener(mAnimatorListener).start();
+        if (null == mTranslateAnim) {
+            mTranslateAnim = getTranslateAnim();
+            mTranslateAnim.setAnimationListener(mAnimationListener);
+            mTranslateAnim.setInterpolator(new LinearInterpolator());
+        }
+        mTranslateAnim.setDuration(mAnimTime);
+        startAnimation(mTranslateAnim);
     }
 
+    private Animation getTranslateAnim() {
+        Animation translate = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, 1,
+                Animation.RELATIVE_TO_PARENT, -1f, Animation.RELATIVE_TO_SELF, 0,
+                Animation.RELATIVE_TO_SELF, 0);
+        translate.setInterpolator(new LinearInterpolator());
+        return translate;
+    }
 
-    //动画监听
-    Animator.AnimatorListener mAnimatorListener = new Animator.AnimatorListener() {
+    Animation.AnimationListener mAnimationListener = new Animation.AnimationListener() {
         @Override
-        public void onAnimationStart(Animator animation) {
+        public void onAnimationStart(Animation animation) {
             isShowing = true;
             setVisibility(VISIBLE);
         }
 
         @Override
-        public void onAnimationEnd(Animator animation) {
+        public void onAnimationEnd(Animation animation) {
             isShowing = false;
-            if (getVisibility() != INVISIBLE) {
-                setVisibility(INVISIBLE);
-            }
-            if (null != iFlutterAnimCallBack) {//消失回调 通知外部调用
+            setVisibility(INVISIBLE);
+            if (iFlutterAnimCallBack != null) {//消失回调
                 iFlutterAnimCallBack.onDismiss(position);
             }
         }
 
         @Override
-        public void onAnimationCancel(Animator animation) {
-        }
+        public void onAnimationRepeat(Animation animation) {
 
-        @Override
-        public void onAnimationRepeat(Animator animation) {
         }
     };
 
@@ -150,14 +149,19 @@ public class FlutterView extends RelativeLayout {
     }
 
     /**
-     * 清除消息
-     * 本意是清除动画 但是动画库清除动画的方法有bug存在  所以只需更换自己写的动画就可以
+     * 清除动画
      */
     public void clear() {
-        isShowing = false;
-        mContent = null;
         if (getVisibility() != INVISIBLE) {
             setVisibility(INVISIBLE);
         }
+        if (null != mTranslateAnim && isShowing()) {
+            mTranslateAnim.cancel();
+            if (getAnimation() != null) {
+                getAnimation().cancel();
+            }
+        }
+        isShowing = false;
+        mContent = null;
     }
 }
